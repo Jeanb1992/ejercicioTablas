@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>Tablas</h1>
-        <table>
+        <table border="1">
             <tr>
                 <th>A</th>
                 <th>B</th>
@@ -16,23 +16,43 @@
                 <th>D</th>
             </tr>
             <tr>
-                <td rowspan="2">E, I</td>
-                <td>F</td>
-                <td colspan="2">G, H</td>
+                <td rowspan="2">
+                    <!-- Lista no ordenada -->
+                    <ul>
+                        <li>E</li>
+                        <li>I</li>
+                    </ul>
+                </td>
+                <td>
+                    <!-- Lista ordenada -->
+                    <ol>
+                        <li>F</li>
+                        <li>J</li>
+                    </ol>
+                </td>
+                <td colspan="2">
+                    G, H
+                </td>
             </tr>
-            
             <tr>
-                <td>J</td>
-                <td rowspan="2">K , O</td>
                 <td>L</td>
+                <td>N</td>
+                <td>P</td>
             </tr>
             <tr>
+                <td colspan="3">
+                    <!-- Lista de definición -->
+                    <dl>
+                        <dt>K</dt>
+                        <dd>k</dd>
+                        <dt>O</dt>
+                        <dd>o</dd>
+                        <dt>Q</dt>
+                        <dd>q</dd>
+                    </dl>
+                </td>
                 <td>M</td>
-                <td>N</td>
-                <td rowspan="2">P</td>
             </tr>
-            
-           
         </table>
     </body>
     </html>

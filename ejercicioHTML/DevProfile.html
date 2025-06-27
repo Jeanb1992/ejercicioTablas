@@ -194,10 +194,32 @@
                 <textarea id="trabajos" name="trabajos"></textarea><br>
                 <label for="archivo">Adjuntar hoja de vida:</label>
                 <input type="file" id="archivo" name="archivo"><br>
+
+                <label>Lenguajes que conoces:</label><br>
+                <input type="checkbox" id="js" name="lenguajes" value="JavaScript">
+                <label for="js">JavaScript</label>
+                <input type="checkbox" id="java" name="lenguajes" value="Java">
+                <label for="java">Java</label>
+                <input type="checkbox" id="python" name="lenguajes" value="Python">
+                <label for="python">Python</label>
+                <br><br>
+
+                <label>¿Prefieres Frontend o Backend?</label><br>
+                <input type="radio" id="frontend" name="preferencia" value="Frontend">
+                <label for="frontend">Frontend</label>
+                <input type="radio" id="backend" name="preferencia" value="Backend">
+                <label for="backend">Backend</label>
+                <br><br>
+
+                <label for="nivel">Nivel de experiencia:</label>
+                <select id="nivel" name="nivel">
+                    <option value="junior">Junior</option>
+                    <option value="semi-senior">Semi-Senior</option>
+                    <option value="senior">Senior</option>
+                </select>
+                <br><br>
                 <input type="submit" value="Enviar (POST)">
-            </form>
-            <form action="#" method="get">
-                <input type="submit" value="Enviar (GET)">
+                <input type="submit" value="Enviar (GET)" formmethod="get">
             </form>
         </section>
     </main>

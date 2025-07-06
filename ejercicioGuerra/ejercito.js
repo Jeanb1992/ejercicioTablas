@@ -233,13 +233,14 @@ function guerra(ejercitoA, ejercitoB) {
       if (obtenerUnidadesVivas(defensor).length === 0) return;
       const ataqueMax = atacante[tipo].ataque[id];
       let ataque = numeroAleatorio(1, ataqueMax);
-      // Golpe crítico
-      if (ataque === ataqueMax) {
-        estadisticas[nombreAtacante].golpesCriticos++;
-      }
       // Penalización por clima
       const penalizacion = numeroAleatorio(0, 30) / 100;
+      const ataqueOriginal = ataque; // Guarda el valor antes de penalizar
       ataque = Math.round(ataque * (1 - penalizacion));
+      // Golpe crítico solo si fue ataque máximo y penalización 0
+      if (ataqueOriginal === ataqueMax && penalizacion === 0) {
+        estadisticas[nombreAtacante].golpesCriticos++;
+      }
       // Elegir objetivo aleatorio
       const objetivos = obtenerUnidadesVivas(defensor);
       if (objetivos.length === 0) return;

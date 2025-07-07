@@ -152,8 +152,15 @@ function mostrarEstadisticasFinales(ganador, ejercitoA, ejercitoB, tipos, estadi
     };
   });
 
-  console.log("\n===== ESTADÍSTICAS FINALES =====");
-  console.log("Ganador:", ganador ? ganador : "Empate");
+  const mensajeEstadisticas = "\n===== ESTADÍSTICAS FINALES =====";
+  const mensajeGanador = "Ganador: " + (ganador ? ganador : "Empate");
+  const mensajeAtaquesA = `Cantidad de ataques efectivos de ${ejercitoA.nombre}: ${estadisticas[ejercitoA.nombre].ataquesEfectivos}`;
+  const mensajeAtaquesB = `Cantidad de ataques efectivos de ${ejercitoB.nombre}: ${estadisticas[ejercitoB.nombre].ataquesEfectivos}`;
+  const mensajeCriticosA = `Cantidad de golpes críticos de ${ejercitoA.nombre}: ${estadisticas[ejercitoA.nombre].golpesCriticos}`;
+  const mensajeCriticosB = `Cantidad de golpes críticos de ${ejercitoB.nombre}: ${estadisticas[ejercitoB.nombre].golpesCriticos}`;
+
+  console.log(mensajeEstadisticas);
+  console.log(mensajeGanador);
 
   console.log("\nUnidades eliminadas por cada ejército:");
   console.table(tablaEliminados);
@@ -164,13 +171,29 @@ function mostrarEstadisticasFinales(ganador, ejercitoA, ejercitoB, tipos, estadi
   console.log(`\nResumen de ${ejercitoB.nombre} (Perdidas, Ilesas, Heridas):`);
   console.table(tablaResumenB);
 
-  console.log(`\nCantidad de ataques efectivos de ${ejercitoA.nombre}:`, estadisticas[ejercitoA.nombre].ataquesEfectivos);
-  console.log(`Cantidad de ataques efectivos de ${ejercitoB.nombre}:`, estadisticas[ejercitoB.nombre].ataquesEfectivos);
-  console.log(`\nCantidad de golpes críticos de ${ejercitoA.nombre}:`, estadisticas[ejercitoA.nombre].golpesCriticos);
-  console.log(`Cantidad de golpes críticos de ${ejercitoB.nombre}:`, estadisticas[ejercitoB.nombre].golpesCriticos);
+  console.log(mensajeAtaquesA);
+  console.log(mensajeAtaquesB);
+  console.log(mensajeCriticosA);
+  console.log(mensajeCriticosB);
+
+  // Agregar al log visual si la función existe
+  if (typeof agregarLog === 'function') {
+    agregarLog(mensajeEstadisticas);
+    agregarLog(mensajeGanador);
+    agregarLog("Unidades eliminadas por cada ejército:");
+    agregarLog(JSON.stringify(tablaEliminados, null, 2));
+    agregarLog(`Resumen de ${ejercitoA.nombre} (Perdidas, Ilesas, Heridas):`);
+    agregarLog(JSON.stringify(tablaResumenA, null, 2));
+    agregarLog(`Resumen de ${ejercitoB.nombre} (Perdidas, Ilesas, Heridas):`);
+    agregarLog(JSON.stringify(tablaResumenB, null, 2));
+    agregarLog(mensajeAtaquesA);
+    agregarLog(mensajeAtaquesB);
+    agregarLog(mensajeCriticosA);
+    agregarLog(mensajeCriticosB);
+  }
 }
-//Se inicializa un objeto con todos los tipos de unidades
-function guerra(ejercitoA, ejercitoB) {
+
+async function guerra(ejercitoA, ejercitoB) {
   let turno = 1;
   const tipos = [
     'soldadosRegulares',
@@ -220,7 +243,12 @@ function guerra(ejercitoA, ejercitoB) {
   let turnoInicial = Math.random() < 0.5;
 
   while (obtenerUnidadesVivas(ejercitoA).length > 0 && obtenerUnidadesVivas(ejercitoB).length > 0) {
-    console.log(`\nTurno ${turno}:`);
+    const mensajeTurno = `\nTurno ${turno}:`;
+    console.log(mensajeTurno);
+    if (typeof agregarLog === 'function') {
+      agregarLog(mensajeTurno);
+    }
+    
     let atacante = turnoInicial ? ejercitoA : ejercitoB;
     let defensor = turnoInicial ? ejercitoB : ejercitoA;
     let nombreAtacante = turnoInicial ? ejercitoA.nombre : ejercitoB.nombre;
@@ -268,26 +296,51 @@ function guerra(ejercitoA, ejercitoB) {
     // Mostrar estado
     const vivasA = contarVivas(ejercitoA);
     const vivasB = contarVivas(ejercitoB);
-    console.log(`${ejercitoA.nombre}:`, vivasA);
-    console.log(`${ejercitoB.nombre}:`, vivasB);
+    const mensajeA = `${ejercitoA.nombre}: ${JSON.stringify(vivasA)}`;
+    const mensajeB = `${ejercitoB.nombre}: ${JSON.stringify(vivasB)}`;
+    console.log(mensajeA);
+    console.log(mensajeB);
+    if (typeof agregarLog === 'function') {
+      agregarLog(mensajeA);
+      agregarLog(mensajeB);
+    }
 
     turno++;
     turnoInicial = !turnoInicial;
+    // Esperar 2 segundos entre turnos
+    await new Promise(resolve => setTimeout(resolve, 2000));
   }
 
   // Resultado final
   let ganador = null;
+  let mensajeGanador = "";
   if (obtenerUnidadesVivas(ejercitoA).length > 0) {
     ganador = ejercitoA.nombre;
-    console.log(`\n¡${ejercitoA.nombre} ganó la guerra!`);
+    mensajeGanador = `\n¡${ejercitoA.nombre} ganó la guerra!`;
+    console.log(mensajeGanador);
   } else if (obtenerUnidadesVivas(ejercitoB).length > 0) {
     ganador = ejercitoB.nombre;
-    console.log(`\n¡${ejercitoB.nombre} ganó la guerra!`);
+    mensajeGanador = `\n¡${ejercitoB.nombre} ganó la guerra!`;
+    console.log(mensajeGanador);
   } else {
-    console.log("\n¡Ambos ejércitos han sido destruidos!");
+    mensajeGanador = "\n¡Ambos ejércitos han sido destruidos!";
+    console.log(mensajeGanador);
+  }
+  
+  if (typeof agregarLog === 'function') {
+    agregarLog(mensajeGanador);
   }
 
   mostrarEstadisticasFinales(ganador, ejercitoA, ejercitoB, tipos, estadisticas);
+
+  // Retornar los datos finales para uso externo
+  return {
+    ganador,
+    ejercitoA,
+    ejercitoB,
+    tipos,
+    estadisticas
+  };
 }
 
-guerra(ejercito1, ejercito2); 
+//guerra(ejercito1, ejercito2); 

@@ -26,9 +26,9 @@ const renderFeed = async () => {
     
 
     postDiv.innerHTML = `
-      <h2>${post.title}</h2>
-      <p>${post.body}</p>
-      <p>Autor: ${user ? user.name : 'Desconocido'}</p>
+      <h2 id="title">${post.title}</h2>
+      <p id="div">${post.body}</p>
+      <p id="autor" >Autor: ${user ? user.name : 'Desconocido'}</p>
       <img src="${imageUrl}" alt="Imagen del post" style="max-width:100%;height:auto;">
     `;
 

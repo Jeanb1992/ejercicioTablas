@@ -102,73 +102,7 @@ console.table({
 });
 console.log("Cantidad total de unidades del ejército 2:", totalUnidades2);
 
-function mostrarEstadisticasFinales(ganador, ejercitoA, ejercitoB, tipos, estadisticas) {
-  // Para saber el valor máximo de vida de cada tipo
-  function getValorVida(tipo) {
-    return valorVida[tipo];
-  }
 
-  function resumenUnidades(ejercito, nombre) {
-    const resumen = {
-      perdidas: {},
-      ilesas: {},
-      heridas: {}
-    };
-    tipos.forEach(tipo => {
-      const vidas = ejercito[tipo].vidas;
-      const maxVida = getValorVida(tipo);
-      resumen.perdidas[tipo] = vidas.filter(v => v === 0).length;
-      resumen.ilesas[tipo] = vidas.filter(v => v === maxVida).length;
-      resumen.heridas[tipo] = vidas.filter(v => v > 0 && v < maxVida * 0.3).length;
-    });
-    return resumen;
-  }
-
-  const resumenA = resumenUnidades(ejercitoA, ejercitoA.nombre);
-  const resumenB = resumenUnidades(ejercitoB, ejercitoB.nombre);
-
-  // Tabla de eliminados
-  const tablaEliminados = {};
-  tipos.forEach(tipo => {
-    tablaEliminados[tipo] = {
-      [`Eliminados por ${ejercitoA.nombre}`]: estadisticas[ejercitoA.nombre].eliminados[tipo],
-      [`Eliminados por ${ejercitoB.nombre}`]: estadisticas[ejercitoB.nombre].eliminados[tipo]
-    };
-  });
-
-  // Tabla de resumen de cada ejército
-  const tablaResumenA = {};
-  const tablaResumenB = {};
-  tipos.forEach(tipo => {
-    tablaResumenA[tipo] = {
-      Perdidas: resumenA.perdidas[tipo],
-      Ilesas: resumenA.ilesas[tipo],
-      Heridas: resumenA.heridas[tipo]
-    };
-    tablaResumenB[tipo] = {
-      Perdidas: resumenB.perdidas[tipo],
-      Ilesas: resumenB.ilesas[tipo],
-      Heridas: resumenB.heridas[tipo]
-    };
-  });
-
-  console.log("\n===== ESTADÍSTICAS FINALES =====");
-  console.log("Ganador:", ganador ? ganador : "Empate");
-
-  console.log("\nUnidades eliminadas por cada ejército:");
-  console.table(tablaEliminados);
-
-  console.log(`\nResumen de ${ejercitoA.nombre} (Perdidas, Ilesas, Heridas):`);
-  console.table(tablaResumenA);
-
-  console.log(`\nResumen de ${ejercitoB.nombre} (Perdidas, Ilesas, Heridas):`);
-  console.table(tablaResumenB);
-
-  console.log(`\nCantidad de ataques efectivos de ${ejercitoA.nombre}:`, estadisticas[ejercitoA.nombre].ataquesEfectivos);
-  console.log(`Cantidad de ataques efectivos de ${ejercitoB.nombre}:`, estadisticas[ejercitoB.nombre].ataquesEfectivos);
-  console.log(`\nCantidad de golpes críticos de ${ejercitoA.nombre}:`, estadisticas[ejercitoA.nombre].golpesCriticos);
-  console.log(`Cantidad de golpes críticos de ${ejercitoB.nombre}:`, estadisticas[ejercitoB.nombre].golpesCriticos);
-}
 //Se inicializa un objeto con todos los tipos de unidades
 function guerra(ejercitoA, ejercitoB) {
   let turno = 1;
@@ -182,7 +116,7 @@ function guerra(ejercitoA, ejercitoB) {
     'submarinos'
   ];
 
-  // Estadísticas 
+  
   let estadisticas = {
     [ejercitoA.nombre]: {
       golpesCriticos: 0,
@@ -195,7 +129,7 @@ function guerra(ejercitoA, ejercitoB) {
       eliminados: { soldadosRegulares: 0, soldadosProfesionales: 0, soldadosElite: 0, carrosTanque: 0, helicopteros: 0, avionesCombate: 0, submarinos: 0 },
     }
   };
-//Se obtiene el numero de unidades vivas de cada ejercito lo mete en un array
+//Se obtiene el numero de unidades vivas de cada ejercito lo mete en un array para datos de cada unidad
   function obtenerUnidadesVivas(ejercito) {
     const vivas = [];
     tipos.forEach(tipo => {
@@ -207,7 +141,7 @@ function guerra(ejercitoA, ejercitoB) {
     });
     return vivas;
   }
-//Se obtiene el numero de unidades vivas de cada ejercito lo mete en un objeto
+//Se obtiene el numero de unidades vivas de cada ejercito lo mete en un objeto para guardar estadisticas
   function contarVivas(ejercito) {
     const conteo = {};
     tipos.forEach(tipo => {
@@ -282,11 +216,77 @@ function guerra(ejercitoA, ejercitoB) {
   } else if (obtenerUnidadesVivas(ejercitoB).length > 0) {
     ganador = ejercitoB.nombre;
     console.log(`\n¡${ejercitoB.nombre} ganó la guerra!`);
-  } else {
-    console.log("\n¡Ambos ejércitos han sido destruidos!");
-  }
+  } 
 
   mostrarEstadisticasFinales(ganador, ejercitoA, ejercitoB, tipos, estadisticas);
 }
 
 guerra(ejercito1, ejercito2); 
+
+function mostrarEstadisticasFinales(ganador, ejercitoA, ejercitoB, tipos, estadisticas) {
+  // Para saber el valor máximo de vida de cada tipo
+  function getValorVida(tipo) {
+    return valorVida[tipo];
+  }
+
+  function resumenUnidades(ejercito, nombre) {
+    const resumen = {
+      perdidas: {},
+      ilesas: {},
+      heridas: {}
+    };
+    tipos.forEach(tipo => {
+      const vidas = ejercito[tipo].vidas;
+      const maxVida = getValorVida(tipo);
+      resumen.perdidas[tipo] = vidas.filter(v => v === 0).length;
+      resumen.ilesas[tipo] = vidas.filter(v => v === maxVida).length;
+      resumen.heridas[tipo] = vidas.filter(v => v > 0 && v < maxVida * 0.3).length;
+    });
+    return resumen;
+  }
+
+  const resumenA = resumenUnidades(ejercitoA, ejercitoA.nombre);
+  const resumenB = resumenUnidades(ejercitoB, ejercitoB.nombre);
+
+  // Tabla de eliminados
+  const tablaEliminados = {};
+  tipos.forEach(tipo => {
+    tablaEliminados[tipo] = {
+      [`Eliminados por ${ejercitoA.nombre}`]: estadisticas[ejercitoA.nombre].eliminados[tipo],
+      [`Eliminados por ${ejercitoB.nombre}`]: estadisticas[ejercitoB.nombre].eliminados[tipo]
+    };
+  });
+
+  // Tabla de resumen de cada ejército
+  const tablaResumenA = {};
+  const tablaResumenB = {};
+  tipos.forEach(tipo => {
+    tablaResumenA[tipo] = {
+      Perdidas: resumenA.perdidas[tipo],
+      Ilesas: resumenA.ilesas[tipo],
+      Heridas: resumenA.heridas[tipo]
+    };
+    tablaResumenB[tipo] = {
+      Perdidas: resumenB.perdidas[tipo],
+      Ilesas: resumenB.ilesas[tipo],
+      Heridas: resumenB.heridas[tipo]
+    };
+  });
+
+  console.log("\n===== ESTADÍSTICAS FINALES =====");
+  console.log("Ganador:", ganador );
+
+  console.log("\nUnidades eliminadas por cada ejército:");
+  console.table(tablaEliminados);
+
+  console.log(`\nResumen de ${ejercitoA.nombre} (Perdidas, Ilesas, Heridas):`);
+  console.table(tablaResumenA);
+
+  console.log(`\nResumen de ${ejercitoB.nombre} (Perdidas, Ilesas, Heridas):`);
+  console.table(tablaResumenB);
+
+  console.log(`\nCantidad de ataques efectivos de ${ejercitoA.nombre}:`, estadisticas[ejercitoA.nombre].ataquesEfectivos);
+  console.log(`Cantidad de ataques efectivos de ${ejercitoB.nombre}:`, estadisticas[ejercitoB.nombre].ataquesEfectivos);
+  console.log(`\nCantidad de golpes críticos de ${ejercitoA.nombre}:`, estadisticas[ejercitoA.nombre].golpesCriticos);
+  console.log(`Cantidad de golpes críticos de ${ejercitoB.nombre}:`, estadisticas[ejercitoB.nombre].golpesCriticos);
+}

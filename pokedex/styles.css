@@ -1,0 +1,220 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f5f6fa;
+}
+
+#app {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+pokemon-list {
+  flex: 1 1 300px;
+  max-width: 350px;
+  background: #fff;
+  border-right: 2px solid #e0e0e0;
+  overflow-y: auto;
+}
+
+pokemon-card {
+  flex: 2 1 0;
+  padding: 32px 24px;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  #app {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  pokemon-list {
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #e0e0e0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  pokemon-card {
+    padding: 16px 8px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .list-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .fav-filter {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* Centrar los botones de filtro en todas las vistas */
+.fav-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  justify-content: center;
+}
+
+/* Mejorar padding/margin del nombre y PS en la tarjeta */
+.poke-name {
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #fffbe6;
+  padding: 6px 0 6px 0;
+  margin-bottom: 4px;
+}
+.poke-type-ps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.poke-ps {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #e6b800;
+  background: #fffbe6;
+  border-radius: 8px;
+  padding: 6px 16px;
+  margin-bottom: 6px;
+  transition: color 0.3s;
+}
+.poke-types {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+.poke-type-badge {
+  background: #ffd600;
+  color: #333;
+  border-radius: 8px;
+  padding: 2px 10px;
+  font-size: 0.95em;
+  font-weight: 500;
+  box-shadow: none;
+  margin-bottom: 2px;
+  transition: background 0.3s, color 0.3s;
+}
+.poke-images {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin: 18px 0 10px 0;
+}
+.poke-images img {
+  width: 90px;
+  height: 90px;
+  background: #fff;
+  border-radius: 12px;
+  border: none;
+  object-fit: contain;
+}
+.stats-section {
+  background: #fffde4;
+  border-radius: 14px;
+  border: none;
+  padding: 12px 10px 8px 10px;
+  margin-top: 8px;
+  font-size: 1em;
+}
+.poke-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 4px;
+  background: transparent;
+}
+.poke-table th, .poke-table td {
+  padding: 6px 8px;
+  text-align: left;
+  border: none;
+}
+.poke-table th {
+  color: #bfa100;
+  font-weight: 600;
+  background: none;
+}
+.poke-table tr:nth-child(even) {
+  background: #fffbe6;
+}
+.poke-table tr:nth-child(odd) {
+  background: #fffde4;
+}
+.poke-abilities {
+  margin-top: 8px;
+  font-size: 1em;
+  color: #555;
+}
+@media (max-width: 600px) {
+  .card-container {
+    padding: 10px 2px;
+    min-height: 320px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .poke-images img {
+    width: 60px;
+    height: 60px;
+  }
+  .poke-name {
+    font-size: 1.6em;
+    text-align: right;
+    padding-right: 12px;
+  }
+}
+/* Colores de tipo para la tarjeta y los badges */
+.type-normal    { background: #A8A77A !important; color: #fff !important; }
+.type-fire      { background: #EE8130 !important; color: #fff !important; }
+.type-water     { background: #6390F0 !important; color: #fff !important; }
+.type-electric  { background: #F7D02C !important; color: #333 !important; }
+.type-grass     { background: #7AC74C !important; color: #fff !important; }
+.type-ice       { background: #96D9D6 !important; color: #333 !important; }
+.type-fighting  { background: #C22E28 !important; color: #fff !important; }
+.type-poison    { background: #A33EA1 !important; color: #fff !important; }
+.type-ground    { background: #E2BF65 !important; color: #333 !important; }
+.type-flying    { background: #A98FF3 !important; color: #fff !important; }
+.type-psychic   { background: #F95587 !important; color: #fff !important; }
+.type-bug       { background: #A6B91A !important; color: #fff !important; }
+.type-rock      { background: #B6A136 !important; color: #fff !important; }
+.type-ghost     { background: #735797 !important; color: #fff !important; }
+.type-dragon    { background: #6F35FC !important; color: #fff !important; }
+.type-dark      { background: #705746 !important; color: #fff !important; }
+.type-steel     { background: #B7B7CE !important; color: #333 !important; }
+.type-fairy     { background: #D685AD !important; color: #fff !important; }
+
+/* Para la tarjeta principal, solo el fondo */
+.card-container.type-normal    { background: #A8A77A !important; }
+.card-container.type-fire      { background: #EE8130 !important; }
+.card-container.type-water     { background: #6390F0 !important; }
+.card-container.type-electric  { background: #F7D02C !important; }
+.card-container.type-grass     { background: #7AC74C !important; }
+.card-container.type-ice       { background: #96D9D6 !important; }
+.card-container.type-fighting  { background: #C22E28 !important; }
+.card-container.type-poison    { background: #A33EA1 !important; }
+.card-container.type-ground    { background: #E2BF65 !important; }
+.card-container.type-flying    { background: #A98FF3 !important; }
+.card-container.type-psychic   { background: #F95587 !important; }
+.card-container.type-bug       { background: #A6B91A !important; }
+.card-container.type-rock      { background: #B6A136 !important; }
+.card-container.type-ghost     { background: #735797 !important; }
+.card-container.type-dragon    { background: #6F35FC !important; }
+.card-container.type-dark      { background: #705746 !important; }
+.card-container.type-steel     { background: #B7B7CE !important; }
+.card-container.type-fairy     { background: #D685AD !important; } 

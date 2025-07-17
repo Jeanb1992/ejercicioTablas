@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "@material/web": "^2.3.0",
+    "lit": "^3.3.1",
+    "lit-translate": "^2.0.1"
+  },
+  "name": "rickandmorty",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "web-dev-server --node-resolve --open --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@web/dev-server": "^0.4.6"
+  }
+}
